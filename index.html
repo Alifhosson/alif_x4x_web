@@ -1,363 +1,317 @@
-<html lang="bn"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বাংলালিংক লোন তথ্য
-    ALIF HOSSON</title>
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        body {
-            background-color: #000;
-            color: #0f0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .container {
-            max-width: 500px;
-            padding: 20px;
-            background-color: #111;
-            border: 1px solid #0f0;
-            border-radius: 5px;
-            box-shadow: 0 0 15px rgba(0,255,0,0.3);
-            text-align: center;
-            animation: fadeIn 1.5s ease-out;
-        }
-
-        .logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            background-color: #000;
-            border-radius: 50%;
-            position: relative;
-            border: 4px solid transparent;
-            animation: glow 1.5s infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .logo img {
-            width: 80%;
-            height: 80%;
-            border-radius: 50%;
-        }
-
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 5px rgba(0, 255, 0, 0.8), 0 0 15px rgba(0, 255, 0, 0.4), 0 0 20px rgba(0, 255, 0, 0.2);
-                border-color: rgba(0, 255, 0, 0.8);
-            }
-            50% {
-                box-shadow: 0 0 10px rgba(0, 255, 0, 1), 0 0 30px rgba(0, 255, 0, 0.6), 0 0 40px rgba(0, 255, 0, 0.4);
-                border-color: rgba(0, 255, 0, 1);
-            }
-        }
-
-        form {
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        label {
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            transition: all 0.3s ease;
-            pointer-events: none;
-            color: #0f0;
-        }
-
-        input[type="text"] {
-            width: calc(100% - 18px);
-            padding: 8px;
-            font-size: 16px;
-            border: 1px solid #0f0;
-            border-radius: 4px;
-            background-color: #000;
-            color: #0f0;
-            transition: box-shadow 0.3s ease;
-            text-align: center;
-        }
-
-        input[type="text"]:focus + label,
-        input[type="text"]:not(:placeholder-shown) + label {
-            top: -20px;
-            left: 10px;
-            font-size: 12px;
-            color: #0f0;
-        }
-
-        input[type="text"]:focus {
-            box-shadow: 0 0 10px rgba(0,255,0,0.8);
-            outline: none;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #000;
-            color: #0f0;
-            border: 1px solid #0f0;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            margin-top: 19px;
-        }
-
-        button:hover {
-            background-color: #0f0;
-            color: #000;
-            box-shadow: 0 0 15px rgba(0,255,0,0.8);
-        }
-
-        #response {
-            margin-top: 20px;
-            padding: 10px;
-            text-align: left;
-            animation: fadeIn 2s ease-out;
-        }
-
-        .row {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .col {
-            flex: 1;
-            padding: 5px;
-        }
-
-        .col.label {
-            font-weight: bold;
-        }
-
-        .developer {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .developer a {
-            color: #0f0;
-            text-decoration: underline;
-        }
-
-        .separator {
-            border-top: 1px solid #0f0;
-            margin: 20px 0;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #0f0;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="logo">
-            <img src="image/admin.png" alt="Logo">
-        </div>
-        <h2>বাংলালিংক লোন তথ্য 
-        By ALIF HOSSON</h2>
-        <div class="separator"></div>
-        <br>
-        <form id="checkForm">
-            <input type="text" id="phoneNumber" name="number" placeholder=" " required="">
-            <label for="phoneNumber">নম্বর: 019XXXXXXXX</label>
-            <button type="submit">তথ্য দেখুন</button>
-        </form>
-        <div id="response">
-    <div class="overlay hidden" id="overlay">
-        <div class="spinner"></div>
-    </div>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Chatbot</title>
     <style>
-        @keyframes shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            30% { transform: translate(3px, 2px) rotate(0deg); }
-            40% { transform: translate(1px, -1px) rotate(1deg); }
-            50% { transform: translate(-1px, 2px) rotate(-1deg); }
-            60% { transform: translate(-3px, 1px) rotate(0deg); }
-            70% { transform: translate(3px, 1px) rotate(-1deg); }
-            80% { transform: translate(-1px, -1px) rotate(1deg); }
-            90% { transform: translate(1px, 2px) rotate(0deg); }
-            100% { transform: translate(1px, -2px) rotate(-1deg); }
-        }
-
-        @keyframes colorChange {
-            0% { filter: hue-rotate(0deg); }
-            25% { filter: hue-rotate(90deg); }
-            50% { filter: hue-rotate(180deg); }
-            75% { filter: hue-rotate(270deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        .animated-image {
-            animation: shake 0.90s infinite, colorChange 0.30s infinite;
-        }
-
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            overflow: hidden; /* To hide overflow and avoid scrollbars */
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: url('https://example.com/your-background-image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            animation: changeColor 10s infinite;
+            overflow: hidden;
         }
 
-        .moving-text {
-            position: absolute;
-            white-space: nowrap;
-            animation: moveText 13s linear infinite, colorChange 1s infinite;
-            bottom: 0.90px; /* Adjust this value to move text further down */
-            left: 80%; /* Start position off the screen on the right */
+        @keyframes changeColor {
+            0% { background-color: #00c6ff; }
+           12.5% { background-color: #ff00ff; }
+           25% { background-color: #ff0000; }
+           37.5% { background-color: #ffff00; }
+           50% { background-color: #00ff00; }
+          62.5% { background-color: #00ffff; }
+          75% { background-color: #0000ff; }
+          87.5% { background-color: #000000; }
+          100% { background-color: #ffffff; }
         }
 
-        @keyframes moveText {
-            0% { left: 100%; } /* Start position off the screen on the right */
-            100% { left: -100%; } /* End position off the screen on the left */
+        #chat-container {
+            width: 100%;
+            max-width: 8000px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            height: 9000vh;
+            backdrop-filter: blur(100px);
+            background-image: url('https://i.imgur.com/9qY4jLO.png');
+            background-size: cover;
+            background-position: center;
         }
 
-        .admin {
-            text-align: right;
-            margin-top: 90px; /* Adjust this value to move the image further down */
+        #chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 200px;
+            background-color: rgba(50, 50, 50, 0.7);
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-container {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 15px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .message-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .message {
+            max-width: 75%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            line-height: 1.5;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-message {
+            background-color: #333;
+            color: #e0e0e0;
+            margin-left: auto;
+            border-bottom-right-radius: 0;
+            border: 1px solid #444;
+        }
+
+        .bot-message {
+            background-color: #007bff;
+            color: #fff;
+            margin-right: auto;
+            border-bottom-left-radius: 0;
+            border: 1px solid #0056b3;
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        #input-container {
+            display: flex;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid #333;
+            align-items: center;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+            color: #e0e0e0;
+            background-color: #2a2a2a;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #user-input:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            padding: 0;
+            margin-bottom: 10px;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .social-links li {
+            display: inline;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color:900;
+            transition: background-color 100s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #007bff;
+        }
+
+        .social-links i {
+            margin: 0;
+        }
+
+        .developed-by {
+            text-align: center;
+            padding: 10px;
+            border-top: 2px solid #ccc;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.1);
+            animation: textColorChange 2s infinite;
+            border-radius: 7px;
+            margin-top: 10px;
+        }
+
+        @keyframes textColorChange {
+            0% { color: #333; }
+            50% { color: #007bff; }
+            100% { color: #333; }
         }
     </style>
 </head>
 <body>
-    <div id="response">
-        <div class="overlay hidden" id="overlay">
-            <div class="spinner"></div>
-        </div>
-        <!-- Admin Contact Information -->
-        <div class="admin">
-            <h3></h3>
-            <p>
-                <a href="https://www.facebook.com/Alifhosson.xxx?mibextid=ZbWKwL" target="_blank">
-                    <img src="image/admin.png" alt="Admin Image" class="animated-image" style="width: 50px; height: 50px; border-radius: 50%; vertical-align: middle; margin-left: 10px;">
-                </a>
-            </p>
+
+    <div class="developed-by">
+        <p>Developed by Alif Hosson</p>
+    </div>
+
+    <ul class="social-links">
+        <li><a href="https://www.facebook.com/Alifhosson.xxx?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="https://t.me/alifhosson" target="_blank"><i class="fab fa-telegram"></i></a></li>
+        <li><a href="https://www.instagram.com/alif__hosson" target="_blank"><i class="fab fa-instagram"></i></a></li>
+    </ul>
+
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
         </div>
     </div>
-    <div class="moving-text">Assalamu alaikum Welcome to বাংলালিংক লোন তথ্য By ALIF HOSSON</div>
-</body>
-</html>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script>
-        function showMessage(message, isError = false) {
-            const responseDiv = document.getElementById('response');
-            responseDiv.innerHTML = `<div class="${isError ? 'error' : ''}">${message}</div>`;
-            const separator = document.createElement('div');
-            separator.classList.add('separator');
-            responseDiv.appendChild(separator);
+        let userName = "You";
 
-            const developerDiv = document.createElement('div');
-            developerDiv.classList.add('developer');
-            developerDiv.innerHTML = 'Developer: <a href="আপনার লিংক এখানে দিন।">Sujon Islam</a>';
-            responseDiv.appendChild(developerDiv);
+        async function getBotResponse(userInput) {
+            try {
+                const apiUrl = `http://37.27.114.136:25472/nayan/ai?text=${encodeURIComponent(userInput)}`;
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const botResponse = data.msg || "Sorry, I didn't understand that.";
+                displayMessage("Bot", botResponse, "bot");
+            } catch (error) {
+                console.error('Error details:', error);
+                displayError(error.message);
+            }
         }
 
-        document.getElementById('checkForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            var phoneNumber = document.getElementById('phoneNumber').value;
-            var overlay = document.getElementById('overlay');
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value.trim();
+            if (userInput === "") return;
 
-            
-            if (!/^019/.test(phoneNumber)) {
-                showMessage('ত্রুটি: এটি বাংলালিংক নম্বর নয়।', true);
-                return;
+            const nameCheck = userInput.match(/^my name is (.+)$/i);
+            if (nameCheck) {
+                userName = nameCheck[1];
+                updateUserMessages(userName);
+                displayMessage("Bot", `From now on, I'll call you "${userName}"`, "bot");
+            } else {
+                displayMessage(userName, userInput, "user");
+                getBotResponse(userInput);
             }
 
-            var apiUrl = "https://myblapi.banglalink.net/api/v1/emergency-balance/" + encodeURIComponent(phoneNumber);
+            document.getElementById('user-input').value = '';
+        }
 
-            overlay.classList.remove('hidden');
+        function displayMessage(sender, message, type) {
+            const chatBox = document.getElementById('chat-box');
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add('message-container');
 
-            fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                overlay.classList.add('hidden');
-                if (data.status === "SUCCESS") {
-                    const loanInfo = data.data;
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messageElement.classList.add('message', type === 'bot' ? 'bot-message' : 'user-message');
+            const icon = document.createElement('img');
+            icon.classList.add('icon', type === 'bot' ? 'bot-icon' : 'user-icon');
+            icon.src = type === 'bot' ? 'https://i.imgur.com/9qY4jLO.png' : 'https://i.imgur.com/IKvH88a.jpeg'; // Different icons for bot and user
+            icon.alt = `${sender} Icon`;
 
-                 
-                    if (loanInfo.id === undefined || loanInfo.msisdn === undefined || loanInfo.due_loan === undefined || loanInfo.expires_in === undefined) {
-                        showMessage('Not:এই নাম্বারে লোন নেওয়া হয়নি।💰', true);
-                    } else {
-                        const infoHtml = `
-                            <div class="row">
-                                <div class="col label">আইডি:</div>
-                                <div class="col">${loanInfo.id}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col label">ফোন নম্বর:</div>
-                                <div class="col">${loanInfo.msisdn}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col label">বকেয়া লোন:</div>
-                                <div class="col">${loanInfo.due_loan} টাকা</div>
-                                                            </div>
-                                                            <div class="row">
-                                <div class="col label">মেয়াদ শেষের তারিখ:</div>
-                                <div class="col">${loanInfo.expires_in}</div>
-                                                            </div>
-                                                        `;
-                                                        document.getElementById('response').innerHTML = infoHtml;
-                                                    }
-                                                } else {
-                                                    showMessage('ত্রুটি: তথ্য প্রদানে সমস্যা হয়েছে।', true);
-                                                }
-                                            })
-                                            .catch(error => {
-                                                overlay.classList.add('hidden');
-                                                showMessage('ত্রুটি: সার্ভারের সমস্যা রয়েছে, কিছুক্ষণ পর আবার চেষ্টা করুন।', true);
-                                                console.error('Error:', error);
-                                            });
-                                        });
-                                    </script>
-                                
-                                </body></html>
+            if (type === 'bot') {
+                messageContainer.appendChild(icon);
+                messageContainer.appendChild(messageElement);
+            } else {
+                messageContainer.appendChild(messageElement);
+                messageContainer.appendChild(icon);
+            }
+
+            chatBox.appendChild(messageContainer);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function updateUserMessages(newName) {
+            const chatBox = document.getElementById('chat-box');
+            const messages = chatBox.querySelectorAll('.user-message');
+            messages.forEach(messageElement => {
+                const updatedText = messageElement.textContent.replace(userName, newName);
+                messageElement.textContent = updatedText;
+            });
+        }
+
+        function displayError(message) {
+            const chatBox = document.getElementById('chat-box');
+            const errorElement = document.createElement('div');
+            errorElement.textContent = `Error: ${message}`;
+            errorElement.style.color = 'red';
+            chatBox.appendChild(errorElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
